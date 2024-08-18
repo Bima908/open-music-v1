@@ -1,0 +1,25 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "rules": {
+        "no-console": "off",
+        "linebreak-style":"off",
+        "class-methods-use-this":"off",
+        "no-shadow":"off",
+        "eslint-plugin-import/no-extraneous-dependencies":"off",
+        "no-unused-vars":"warn",
+        "no-trailing-spaces": "off",
+        "quotes":"off",
+        "no-underscore-dangle":"off",
+        "eol-last":"off",
+        "camelcase":"off"
+    }
+}

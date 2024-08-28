@@ -9,34 +9,18 @@ exports.shorthands = undefined;
  * @returns {Promise<void> | void}
  */
 exports.up = (pgm) => {
-  pgm.createTable("songs", {
+  pgm.createTable("playlist_songs", {
     id: {
       type: 'VARCHAR(50)',
       primaryKey: true,
     },
-    title: {
-      type: 'VARCHAR(200)',
-      notNull: true,
-    },
-    year: {
-      type: 'INT',
-      notNull: true,
-    },
-    genre: {
-      type: 'VARCHAR(100)',
-      notNull: true,
-    },
-    performer: {
-      type: 'VARCHAR(100)',
-      notNull: true,
-    },
-    duration: {
-      type: 'VARCHAR(100)',
-      notNull: false,
-    },
-    album_id: {
+    playlist_id: {
       type: 'VARCHAR(50)',
-      notNull: false,
+      notNull: true,
+    },
+    song_id: {
+      type: 'VARCHAR(50)',
+      notNull: true,
     },
     created_at: {
       type: 'TEXT',
@@ -49,6 +33,10 @@ exports.up = (pgm) => {
       default: new Date().toISOString(),
     },
   });
+
+  pgm.createConstraint("playlist_songs", "fk_playlist_songs.song_id", "FOREIGN KEY(song_id) REFERENCES songs(id) ON DELETE CASCADE");
+
+  pgm.createConstraint("playlist_songs", "fk_playlist_songs.playlist_id", "FOREIGN KEY(playlist_id) REFERENCES playlists(id) ON DELETE CASCADE");
 };
 
 /**
@@ -57,5 +45,5 @@ exports.up = (pgm) => {
  * @returns {Promise<void> | void}
  */
 exports.down = (pgm) => {
-  pgm.dropTable("songs");
+  pgm.dropTable("playlist_songs");
 };

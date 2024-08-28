@@ -1,3 +1,5 @@
+const { password } = require('pg/lib/defaults');
+
 /**
  * @type {import('node-pg-migrate').ColumnDefinitions | undefined}
  */
@@ -9,34 +11,23 @@ exports.shorthands = undefined;
  * @returns {Promise<void> | void}
  */
 exports.up = (pgm) => {
-  pgm.createTable("songs", {
+  pgm.createTable("users", {
     id: {
       type: 'VARCHAR(50)',
       primaryKey: true,
     },
-    title: {
-      type: 'VARCHAR(200)',
+    username: {
+      type: 'VARCHAR(100)',
+      unique: true,
       notNull: true,
     },
-    year: {
-      type: 'INT',
+    password: {
+      type: 'TEXT',
       notNull: true,
     },
-    genre: {
+    fullname: {
       type: 'VARCHAR(100)',
       notNull: true,
-    },
-    performer: {
-      type: 'VARCHAR(100)',
-      notNull: true,
-    },
-    duration: {
-      type: 'VARCHAR(100)',
-      notNull: false,
-    },
-    album_id: {
-      type: 'VARCHAR(50)',
-      notNull: false,
     },
     created_at: {
       type: 'TEXT',
@@ -57,5 +48,5 @@ exports.up = (pgm) => {
  * @returns {Promise<void> | void}
  */
 exports.down = (pgm) => {
-  pgm.dropTable("songs");
+  pgm.dropTable("users");
 };

@@ -14,7 +14,7 @@ class SongsService {
       title, year, genre, performer, duration = null, albumId = null, 
     },
   ) {
-    const id = nanoid(16);
+    const id = `song-${nanoid(16)}`;
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
 
@@ -111,6 +111,16 @@ class SongsService {
     }
 
     return result.rows[0];
+  }
+
+  async getSongsByPlaylist(playlist_id) {
+    const query = {
+      text: 'SELECT songs.* FROM songs JOIN playlist_songs ON songs.id = playlist_songs.song_id WHERE playlist_songs.playlist_id = $1',
+      values: [playlist_id],
+    };
+
+    const result = await this._pool.query(query);
+    return result.rows.map(songMapperResponse);
   }
 }
 
